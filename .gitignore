@@ -25,6 +25,8 @@ local.sbt
 .bloop/
 .metals/
 metals.sbt
+*.log
+.scalafmt.conf
 
 # IDEA
 .idea
