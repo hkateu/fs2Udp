@@ -31,7 +31,9 @@ object NioUdpMulticast extends IOApp {
         println("[multicast server] Udp server is successfully opened")
 
         val networkInterface: NetworkInterface =
-          NetworkInterface.getByName("wlxb4b024bc35a7")
+          NetworkInterface.getByName(
+            "wlxb4b024bc35a7"
+          ) // Pass the interface name that matches what you have.
 
         datagramChannel.setOption(
           StandardSocketOptions.IP_MULTICAST_IF,
@@ -66,11 +68,12 @@ object NioUdpMulticast extends IOApp {
       } else {
         println("[multicast server] The channel cannot be opened!")
       }
-    } match
+    } match {
       case Failure(ex) =>
         println(s"[multicast server] ${ex.getMessage}")
       case Success(_) =>
         println("[multicast server] Everything works fine")
+    }
   }
 
   def client = {
@@ -116,11 +119,12 @@ object NioUdpMulticast extends IOApp {
       } else {
         println("[multicast client] This is not multicast address")
       }
-    } match
+    } match {
       case Failure(ex) =>
         println(s"[multicast client] ${ex.getMessage}")
       case Success(_) =>
         println("[multicast client] Everything works fine")
+    }
   }
   def run(args: List[String]): IO[ExitCode] =
     (IO(server), IO(client)).parMapN((s, c) => ()).as(ExitCode.Success)

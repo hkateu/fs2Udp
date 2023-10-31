@@ -15,19 +15,6 @@ import java.nio.charset.CharsetDecoder
 import cats.syntax.parallel.*
 import scala.concurrent.duration.*
 import java.net.ProtocolFamily
-// import java.net.InetAddress
-// import cats.effect.*
-// import java.nio.channels.ClosedChannelException
-// import java.io.IOException
-// import java.nio.CharBuffer
-// import scala.concurrent.Future
-// import scala.concurrent.ExecutionContext.Implicits.global
-// import scala.concurrent.Await
-// import scala.concurrent.duration.Duration
-// import com.rockthejvm.nioVersion.JavaUdp.server
-// import scala.concurrent.duration.*
-// import java.net.NetworkInterface
-// // import com.xonal.Sound.CaptureSound
 
 object NioUdp extends IOApp {
   def server: Unit = {
@@ -63,11 +50,12 @@ object NioUdp extends IOApp {
       } else {
         println("[server] The channel cannot be opened!")
       }
-    } match
+    } match {
       case Failure(ex) =>
         println(s"[server] ${ex.getMessage}")
       case Success(_) =>
         println("[server] Everything works fine")
+    }
   }
 
   def client = {
@@ -105,11 +93,12 @@ object NioUdp extends IOApp {
       } else {
         println("[client] The channel cannot be opened!")
       }
-    } match
+    } match {
       case Failure(ex) =>
         println(s"[client] ${ex.getMessage}")
       case Success(_) =>
         println("[client] Everything works fine")
+    }
   }
 
   def connectedClient = {
@@ -148,11 +137,12 @@ object NioUdp extends IOApp {
       } else {
         println("[client] The channel cannot be opened!")
       }
-    } match
+    } match {
       case Failure(ex) =>
         println(s"[client] ${ex.getMessage}")
       case Success(_) =>
         println("[client] Everything works fine")
+    }
   }
 
   def run(args: List[String]): IO[ExitCode] =
