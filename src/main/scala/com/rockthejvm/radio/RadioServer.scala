@@ -13,13 +13,13 @@ import java.net.{
 }
 
 object RadioServer extends IOApp {
-  def radioServer = {
+  def radioServer(link: String) = {
     val multicastAddress: SocketAddress[IpAddress] =
       SocketAddress(ip"225.4.5.6", port"5555")
     val url: Stream[IO, Byte] = io.readInputStream[IO](
       IO(
         new URL(
-          "http://media-ice.musicradio.com:80/ClassicFM-M-Movies"
+          link
         ).openConnection.getInputStream
       ),
       1024
@@ -66,6 +66,8 @@ object RadioServer extends IOApp {
   }
 
   override def run(args: List[String]): IO[ExitCode] =
-    radioServer.compile.drain
+    radioServer(
+      "http://media-ice.musicradio.com:80/ClassicFM-M-Movies"
+    ).compile.drain
       .as(ExitCode.Success)
 }
